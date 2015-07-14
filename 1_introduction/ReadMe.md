@@ -7,8 +7,8 @@ You ought to compare the differences between the Debug as well as Release Versio
 so that you can get a deeper feeling towards how C++ codes are working.
 
 
-Have fun on "C++ loves Assembly Journey"
+	Have fun on "C++ loves Assembly Journey"
 
-Mighten Dai
+	Mighten Dai
 
-Latest edited: 22:29 Jul 13, 2015
+		22:29 Jul 13, 2015
