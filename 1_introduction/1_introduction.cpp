@@ -44,8 +44,8 @@ int main( void )
 // 012B135B  push        edi                |     you will become pretty familar with these
 // 012B135C  lea         edi,[ebp-0C0h]     |        initialization codes.
 // 012B1362  mov         ecx,30h            |
-// 012B1367  mov         eax,0CCCCCCCCh     |
-// 012B136C  rep stos    dword ptr es:[edi] /
+// 012B1367  mov         eax,0CCCCCCCCh     |   This codes are filling int 0x3 ( 0xCC ) into the stack,
+// 012B136C  rep stos    dword ptr es:[edi] /       which could avoid commiting undue code-executing mistakes.
 
 // 012B136E  xor         eax,eax  
 
