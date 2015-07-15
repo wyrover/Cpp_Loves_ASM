@@ -5,7 +5,7 @@
 //  TODO: Illustrate why could static variable's value can remain fixed in memory 
 //
 //    Mighten Dai <mighten.dai@gmail.com>
-//      20:47   ~ 21:26
+//      20:47  ~  21:26
 //		July 15, 2015
 //
 #include <iostream>
