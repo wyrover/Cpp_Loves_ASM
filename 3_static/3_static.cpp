@@ -101,12 +101,18 @@ Hard to grasp why it is written complexily
 /////////////////////
 int nonstatic_test( void)
 {
+push	ebp
+mov	ebp, esp
+
 	int test_non_static_var = 0;
-xor		eax, eax
-push	eax					;  Allocate variable, Initialization
+xor	eax, eax
+push	eax				;  Allocate variable, Initialization
 
 	return test_non_static_var++;
-pop		eax
+inc	eax
+
+pop	eax
+leave					; Free from the influence of interrupt
 }
 ret  
 */
