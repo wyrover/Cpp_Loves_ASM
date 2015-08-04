@@ -1,0 +1,20 @@
+# 5 Read_Structure
+
+This section we will going into implementation of
+structures in C/C++ programming language.
+
+By structure's variable as well as pointer
+
+-- The nature of structure, is some adjacent memory locations, which is addressed by add the offset to the base address.
+
+-----------------------------------
+Some fun facts as shown in the C++ source code file
+
+1.  Allocation of non-aligned or not in accordance with 32-bit boundary. --Auto alignment done by Compiler
+
+2.  The allocation of CPU Registers while operating structures. -- Not only use EAX and ECX, but also uses EDX
+
+
+-----------------------------------------
+Finally edited by Mighten Dai <mighten.dai@gmail.com>
+                            21:55, Aug 04, 2015
