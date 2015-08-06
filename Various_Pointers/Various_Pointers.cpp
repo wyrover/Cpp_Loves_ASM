@@ -5,11 +5,27 @@
 //  20:43, August 05, 2015, by Mighten Dai<mighten.dai@gmail.com>
 //
 
+typedef		int		NONE_PARAM_FUNCTION();
+
 typedef  struct tag_struct
 {
 	char    place_holder[512];
 }
 TEST_STRUCT;
+
+NONE_PARAM_FUNCTION    *p_f;
+
+int test_f(void)
+{
+	__asm  mov eax, 0x11111111;
+	__asm  mov eax, 0x22222222;
+	__asm  mov eax, 0x33333333;
+	__asm  mov eax, 0x44444444;
+	__asm  mov eax, 0x55555555;
+
+	return 0;
+}
+
 
 int main(void )
 {
@@ -50,6 +66,14 @@ int main(void )
 // 003E1037  lea         edx,[ebp-30h]  
 // 003E103A  mov         dword ptr [ebp-0Ch],edx 
 	
+	/////////////////////////////////
+	//   External experiment:
+	//      Pointer point to function.
+	p_f = test_f;
+// 008D105D  mov         dword ptr [p_f (8D336Ch)],offset test_f (8D1000h) 
+
+	p_f();
+// 008D1067  call        dword ptr [p_f (8D336Ch)]
 
 	return 0;
 }
