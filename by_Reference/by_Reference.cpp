@@ -14,6 +14,37 @@
 
 using namespace std;
 
+////////////////////////////////////////////////////////////////////////
+//   External Experiment
+//  If non-zero flag set, return reference "a", otherwise, return "b"
+int  & get_a_ref( int & a, int & b, int flag )
+{
+// 00D81070  push        ebp  
+// 00D81071  mov         ebp,esp  
+// 00D81073  sub         esp,8  
+
+	return ( flag ? a: b );
+// 00D81076  cmp         dword ptr [flag],0  
+// 00D8107A  je          get_a_ref+14h (0D81084h) --\
+//                                                   |
+//  ===> Return "a"                                  |
+// 00D8107C  mov         eax,dword ptr [a]           |
+// 00D8107F  mov         dword ptr [ebp-8],eax       |
+// 00D81082  jmp         get_a_ref+1Ah (0D8108Ah) ---|---\
+//                                                   |   |
+//  ===> Return "b"                                  |   |
+// 00D81084  mov         ecx,dword ptr [b]  ---------/   |
+// 00D81087  mov         dword ptr [ebp-8],ecx           |
+// 00D8108A  mov         edx,dword ptr [ebp-8] ----------/
+// 00D8108D  mov         dword ptr [ebp-4],edx  
+
+// 00D81090  mov         eax,dword ptr [ebp-4]
+// 00D81093  mov         esp,ebp  
+// 00D81095  pop         ebp  
+// 00D81096  ret  
+}
+////////////////////////////////////////////////////////////////////////\
+
 int  swap_pt( int *param1, int *param2 )
 {
 	int   temp = *param1;
@@ -89,6 +120,19 @@ int main(void )
 
 // -----> Get address of pointer pointed to a
 // 01181180  lea         eax,[pa]  
+
+    ////////////////////////////////////////////////////////////////////////
+    //   External Experiment
+	int  & ref_temp = get_a_ref( a, b, c );
+// 00D811E9  mov         edx,dword ptr [c]  
+// 00D811EC  push        edx  
+// 00D811ED  lea         eax,[b]  
+// 00D811F0  push        eax  
+// 00D811F1  lea         ecx,[a]  
+// 00D811F4  push        ecx  
+// 00D811F5  call        get_a_ref (0D81070h)  
+// 00D811FA  add         esp,0Ch  
+// 00D811FD  mov         dword ptr [ref_temp],eax  
 
 	return 0;
 }
