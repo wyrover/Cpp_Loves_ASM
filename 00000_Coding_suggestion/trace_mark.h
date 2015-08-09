@@ -25,7 +25,17 @@
     #define     TraceMark(x)
 #endif    // #if    (TRACE_MARK_ENABLE)
 
-
 #endif    // #ifndef     TRACE_MARK_ENABLE
+
+
+
+//-----------------------------------------------------------------
+// It is necessary for solving confrontation due to naming scheme
+//  Because "TRACE_MARK_ENABLE" might be a frequently used macro,
+//     and once this file is compiled,
+//        this macro will never be useful but form a further obstacle.
+#undef    TRACE_MARK_ENABLE
+
+
 
 #endif    // #ifndef     USER_DEFINED_MACRO___INCLUDE_THE_FILE_trace_mark_H________
