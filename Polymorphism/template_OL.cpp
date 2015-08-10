@@ -22,11 +22,12 @@ struct  type_location
 /////////////////////////////////////////////////////
 // Implicit instantiation
 template< class T > int  do_swap(T & a, T & b);
+
 // Implicit instantiation / Template overloading
 template< class T > int  do_swap(T * a, T * b,  const unsigned int common_length );
 
-// Explicit instantiation
-template< >         int  do_swap<type_location>( type_location & a, type_location & b );
+// Explicit specialization
+template<>         int  do_swap<type_location>( type_location & a, type_location & b );
 
 //////////////////////////////////////////////////
 //     Poly-function Address Table
@@ -51,7 +52,7 @@ int main(void )
     char    char_A = 'A', char_B = 'B';
     bool    bool_t = true, bool_f = false;
     int     int_a = 0xFFFFFFFF, int_b = 0x00000000;
-    
+
     /////////////////////////////////////////
     //   Get prepared, now start !!!!!
 
@@ -62,7 +63,7 @@ int main(void )
     TraceMark(0xAAAAAAAA);
     TraceMark(0xBBBBBBBB);
     TraceMark(0xBBBBBBBB);
-    do_swap( char_A, char_B );
+    do_swap<char>( char_A, char_B ); // Explicit instantiation
     TraceMark(0xBBBBBBBB);
     TraceMark(0xBBBBBBBB);
     TraceMark(0xAAAAAAAA);
@@ -138,11 +139,11 @@ int main(void )
     cout << "After  swap, point_a_x = " << point_a_x << endl;
     cout << "    whereas, point_b_x = " << point_b_x << endl << endl;
     
-	//////////////////////////////////////////////////////////////////////
-	// Template overloading ( Polymorphism )
-	//  Char array -- string
-	char pchars_1[] = "The first  one";
-	char pchars_2[] = "The second one";
+    //////////////////////////////////////////////////////////////////////
+    // Template overloading ( Polymorphism )
+    //  Char array -- string
+    char pchars_1[] = "The first  one";
+    char pchars_2[] = "The second one";
     cout << "Before swap, pchars_1[] = " << pchars_1 << endl;
     cout << "    whereas, pchars_2[] = " << pchars_2 << endl;
     TraceMark(0xAAAAAAAA);
@@ -154,7 +155,7 @@ int main(void )
 // 000B179D  mov         eax,0BBBBBBBBh  
 // 000B17A2  mov         eax,0BBBBBBBBh  
 
-	do_swap( pchars_1, pchars_2, (unsigned)strlen(pchars_1) );
+    do_swap( pchars_1, pchars_2, (unsigned)strlen(pchars_1) );
 // 000B17A7  lea         eax,[ebp-24h]  
 // 000B17AA  mov         dword ptr [ebp-8Ch],eax  
 // 000B17B0  mov         ecx,dword ptr [ebp-8Ch]  
@@ -181,7 +182,7 @@ int main(void )
 // 000B17FE  call        do_swap<char> (0B21D0h)  
 // 000B1803  add         esp,0Ch  
 
-	TraceMark(0xBBBBBBBB);
+    TraceMark(0xBBBBBBBB);
     TraceMark(0xBBBBBBBB);
     TraceMark(0xAAAAAAAA);
     TraceMark(0xAAAAAAAA);
@@ -193,7 +194,7 @@ int main(void )
     cout << "After  swap, pchars_1[] = " << pchars_1 << endl;
     cout << "    whereas, pchars_2[] = " << pchars_2 << endl << endl;
 
-    return 0;
+    return 0;    
 }
 
 /////////////////////////////////////////////////////
@@ -211,7 +212,7 @@ int  do_swap(T & a, T & b)
 // Template overloading
 template< class T > int  do_swap(T * a, T * b, const unsigned int common_length )
 {
-	// Ensure Nonzero
+    // Ensure Nonzero
     unsigned counter = common_length ? common_length : 1;
 
     T *p = new T[counter];
@@ -229,20 +230,20 @@ template< class T > int  do_swap(T * a, T * b, const unsigned int common_length 
         b[index] = p[index];
     }
 
-	if ( p && counter > 1 )
-	{
-		delete [] p;
-	}
-	else if ( p )
-	{
-		delete p;
-	}
+    if ( p && counter > 1 )
+    {
+        delete [] p;
+    }
+    else if ( p )
+    {
+        delete p;
+    }
 
     return 0;
 }
 
 /////////////////////////////////////////////////////
-//  Explicit instantiation
+//  Explicit Specialization
 template< >
 int    do_swap<type_location>( type_location & a, type_location & b )
 {
@@ -261,6 +262,7 @@ int    do_swap<type_location>( type_location & a, type_location & b )
     
     return 0;
 }
+
 /*
 Portray onscreen
 ---------------------
