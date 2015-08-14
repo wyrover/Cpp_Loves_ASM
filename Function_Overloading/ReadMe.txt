@@ -1,4 +1,6 @@
-# Polymorphism
+# Function Overloading
+
+ -- Polymorphism
 
 This section covers the function overloading, template overloading,
 
